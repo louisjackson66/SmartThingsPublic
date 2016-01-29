@@ -7,7 +7,8 @@
  *
  *	Version History
  *
- *	1.0.0	31 Jan 2016		Creation
+ *	1.0.0	28 Jan 2016		Added to GitHub
+ *	1.0.0	27 Jan 2016		Creation
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License. You may obtain a copy of the License at:
