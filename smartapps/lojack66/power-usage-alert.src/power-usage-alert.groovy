@@ -7,7 +7,7 @@
  *
  *	Version History
  *
- *	1.0.1	28 Jan 2016		Added to GitHub and made gramer corrections in alert message
+ *	1.0.1	28 Jan 2016		Added to GitHub and made grammer corrections in alert message
  *	1.0.0	27 Jan 2016		Creation
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
