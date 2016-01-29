@@ -3,11 +3,11 @@
  *
  *  Copyright 2016 Louis Jackson
  *
- *  Version 1.0.0   31 Jan 2016
+ *  Version 1.0.1   31 Jan 2016
  *
  *	Version History
  *
- *	1.0.0	28 Jan 2016		Added to GitHub
+ *	1.0.1	28 Jan 2016		Added to GitHub and made gramer corrections in alert message
  *	1.0.0	27 Jan 2016		Creation
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -82,7 +82,7 @@ def onHandler()
     {
         log.warn "(0E) - comparing ${PowerMetersValue} to ${settings.MaxPower.toInteger()} - ${settings}"
 
-    	strMessage = "The ${app.label} SmartApp determined you have ${nDevCnt} device(s) ${PowerMetersValue}W is above the total Wattage alert level of ${settings.MaxPower.toInteger()}W :\n\n${strMessage}"
+    	strMessage = "The ${app.label} SmartApp determined you have ${nDevCnt} device(s) using a total of ${PowerMetersValue}W. This is above the alert level of ${settings.MaxPower.toInteger()}W :\n\n${strMessage}"
     	sendNotificationToContacts(strMessage, recipients)
 	}
     else
