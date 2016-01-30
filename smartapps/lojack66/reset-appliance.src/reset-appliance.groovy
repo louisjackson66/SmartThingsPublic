@@ -45,10 +45,10 @@ def page1() {
             if(!bReoccurring) { input "time1", "time", title: "At this time of day", required: false }
             else
             {
-                                                input "b10Min", "bool", title: "        - Every 10 mins", required: false, defaultValue:false, submitOnChange: true
-            	if(!b10Min)                     input "b30Min", "bool", title: "        - Every 30 mins", required: false, defaultValue:false, submitOnChange: true
-                if(!b10Min && !b30Min)          input "b1Hr",   "bool", title: "        - Every 1 hr",    required: false, defaultValue:false, submitOnChange: true
-                if(!b10Min && !b30Min && !b1Hr) input "b3Hr",   "bool", title: "        - Every 3 hrs",   required: false, defaultValue:true,  submitOnChange: true
+                if(!b30Min && !b1Hr   && !b3Hr) input "b10Min", "bool", title: "        - Every 10 mins", required: false, defaultValue:false, submitOnChange: true
+            	if(!b10Min && !b1Hr   && !b3Hr) input "b30Min", "bool", title: "        - Every 30 mins", required: false, defaultValue:false, submitOnChange: true
+                if(!b10Min && !b30Min && !b3Hr) input "b1Hr",   "bool", title: "        - Every 1 hr",    required: false, defaultValue:false, submitOnChange: true
+                if(!b10Min && !b30Min && !b1Hr) input "b3Hr",   "bool", title: "        - Every 3 hrs",   required: false, defaultValue:false,  submitOnChange: true
             }
 
         	input "seconds1", "number", title: "Turn on after (default 30) seconds", defaultValue:30, required: false
@@ -83,8 +83,12 @@ def initialize()
         
         if (b10Min) runEvery15Minutes(handlerMethod) 
         else if (b30Min) runEvery30Minutes(handlerMethod)
-        else if (!b1Hr) runEvery1Hour(handlerMethod)
-        else runEvery3Hours(handlerMethod)
+        else if (b1Hr) runEvery1Hour(handlerMethod)
+        else 
+        {
+        	b3Hr= true;
+        	runEvery3Hours(handlerMethod)
+        }
         
         handlerMethod()                   //runs this SmartApp after inital setup
     } else
