@@ -3,10 +3,11 @@
  *
  *  Copyright 2016 Louis Jackson
  *
- *  Version 1.0.0   31 Jan 2016
+ *  Version 1.0.1   29 Jan 2016
  *
  *	Version History
  *
+ *	1.0.1	29 Jan 2016		Allows for multiple Reoccurring time options
  *	1.0.0	28 Jan 2016		Added to GitHub
  *	1.0.0	27 Jan 2016		Creation
  *
@@ -39,9 +40,22 @@ def page1() {
     	section("Reset Thing(s) (Off/On)") {
     		input "switch1", "capability.switch", title: "Using switch(s)", multiple: true, required: true
         
-        	input "bFurnace", "bool", title: "Reset every 3 hours?", required: false, defaultValue:false, submitOnChange: true
-			if(!bFurnace) { input "time1", "time", title: "At this time of day", required: false }
-        
+        	input "bReoccurring", "bool", title: "Reoccurring (default 3hrs)?", required: false, defaultValue:false, submitOnChange: true
+            if(!bReoccurring) { input "time1", "time", title: "At this time of day", required: false }
+            else
+            {
+                input "b10Min", "bool", title: "Reset every 10 minutes?", required: false, defaultValue:false, submitOnChange: true
+            	if(!b10Min)
+                {
+                	input "b30Min", "bool", title: "Reset every 30 minutes?", required: false, defaultValue:false, submitOnChange: true
+                    if (!b30Min)
+                    {
+            			input "b1Hr",   "bool", title: "Reset every 1 hour?",     required: false, defaultValue:false, submitOnChange: true
+                         if (!b1Hr) {input "b3Hr",   "bool", title: "Reset every 3 hours?",    required: false, defaultValue:true, submitOnChange: true }
+                    }
+                }
+            }
+
         	input "seconds1", "number", title: "Turn on after (default 30) seconds", defaultValue:30, required: false
 			
             label title: "Assign a name", required: false
@@ -65,10 +79,15 @@ def updated()
 
 def initialize() 
 {
-    if (bFurnace) 
+    if (bReoccurring) 
     {
-    	log.info "(0C) ${app.label} - initialize() - Run every 3 hours"
-        runEvery3Hours(handlerMethod)
+    	log.info "(0C) ${app.label} - initialize() - Run Reoccurring - ${settings}"
+        
+        if (b10Min) runEvery15Minutes(handlerMethod) 
+        else if (b30Min) runEvery30Minutes(handlerMethod)
+        else if (!b1Hr) runEvery1Hour(handlerMethod)
+        else runEvery3Hours(handlerMethod)
+        
         handlerMethod()                   //runs this SmartApp after inital setup
     } else
     {
