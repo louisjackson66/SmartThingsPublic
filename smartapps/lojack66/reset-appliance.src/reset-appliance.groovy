@@ -37,27 +37,25 @@ preferences {
 
 def page1() {
     dynamicPage(name: "page1") {
-    	section("Reset Thing(s) (Off/On)") {
+    	section("Reset Thing(s) (Off/On)") 
+        {
     		input "switch1", "capability.switch", title: "Using switch(s)", multiple: true, required: true
         
-        	input "bReoccurring", "bool", title: "Reoccurring (default 3hrs)?", required: false, defaultValue:false, submitOnChange: true
+        	input "bReoccurring", "bool", title: "Reoccurring Reset?", required: false, defaultValue:false, submitOnChange: true
             if(!bReoccurring) { input "time1", "time", title: "At this time of day", required: false }
             else
             {
-                input "b10Min", "bool", title: "Reset every 10 minutes?", required: false, defaultValue:false, submitOnChange: true
-            	if(!b10Min)
-                {
-                	input "b30Min", "bool", title: "Reset every 30 minutes?", required: false, defaultValue:false, submitOnChange: true
-                    if (!b30Min)
-                    {
-            			input "b1Hr",   "bool", title: "Reset every 1 hour?",     required: false, defaultValue:false, submitOnChange: true
-                         if (!b1Hr) {input "b3Hr",   "bool", title: "Reset every 3 hours?",    required: false, defaultValue:true, submitOnChange: true }
-                    }
-                }
+                                                input "b10Min", "bool", title: "        - Every 10 mins", required: false, defaultValue:false, submitOnChange: true
+            	if(!b10Min)                     input "b30Min", "bool", title: "        - Every 30 mins", required: false, defaultValue:false, submitOnChange: true
+                if(!b10Min && !b30Min)          input "b1Hr",   "bool", title: "        - Every 1 hr",    required: false, defaultValue:false, submitOnChange: true
+                if(!b10Min && !b30Min && !b1Hr) input "b3Hr",   "bool", title: "        - Every 3 hrs",   required: false, defaultValue:true,  submitOnChange: true
             }
 
         	input "seconds1", "number", title: "Turn on after (default 30) seconds", defaultValue:30, required: false
-			
+        }
+        
+		section("Advanced Options") 
+        {
             label title: "Assign a name", required: false
             mode title: "Set for specific mode(s)", required: false
     	}
