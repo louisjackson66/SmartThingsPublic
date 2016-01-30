@@ -3,10 +3,11 @@
  *
  *  Copyright 2016 Louis Jackson
  *
- *  Version 1.0.0   31 Jan 2016
+ *  Version 1.0.1	30 Jan 2016
  *
  *	Version History
  *
+ *	1.0.1	30 Jan 2016		Identifies the lights that are on by name.
  *	1.0.0	28 Jan 2016		Added to GitHub
  *	1.0.0	27 Jan 2016		Creation
  *
@@ -54,26 +55,35 @@ def updated()
 def initialize() 
 {
 	log.info "(0C) ${app.label} - initialize()"
-    //runEvery1Hour(onHandler)
-    //onHandler() // Run immediately
-    
     subscribe(switches, "switch", onHandler)
 }
 
-//def onHandler()
 def onHandler(evt) 
 {
-    def currSwitches = switches.currentSwitch  // returns a list of the values for all switches
-	def strMessage = ""
+    def nOnCnt = 0
+    def nTotalCnt = 0
+  	def strMessage = ""
     
-    def onSwitches = currSwitches.findAll { switchVal ->
-        switchVal == "on" ? true : false
-    }
+    log.trace "(0D)  ${app.label} - onHandler checking switches"
 
-	if (onSwitches.size())
+    switches.each 
     {
-		strMessage = "${onSwitches.size()} out of ${switches.size()} lights are on."
-    	log.warn strMessage
+    	//log.trace "(0E) ${app.label} - Checking ${it.label} - current state:${it.latestState("switch").value}"
+        nTotalCnt++
+        
+		if(it.latestState("switch").value in ["on", "setLevel"])
+    	{
+            nOnCnt++
+			strMessage += "\n- ${it.label}"
+		}
+    }
+    
+    if (nOnCnt || nTotalCnt)
+    {
+		strMessage = "${app.label} has detected the following ${nOnCnt} out of ${nTotalCnt} switch(s)\\light(s) on:${strMessage}"
+    	log.warn "(0F) ${app.label} - ${strMessage}"
     	sendNotificationEvent(strMessage)
     }
+    
+    log.trace "(10) ${app.label} - onHandler completed check."
 }
