@@ -53,10 +53,11 @@ def page1() {
             }
     	}
         
-        section([mobileOnly:true]) {
+        section("Advanced Options") 
+        {
             label title: "Assign a name", required: false
             mode title: "Set for specific mode(s)", required: false
-        }
+    	}
     }
 }
 

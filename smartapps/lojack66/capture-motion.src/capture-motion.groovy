@@ -46,10 +46,11 @@ def page1() {
 			if(bBurst) {input "nBurstShots", "number", title: "Snap shots... (default 4)", defaultValue:4,  required: false}
     	}
         
-        section([mobileOnly:true]) {
+        section("Advanced Options") 
+        {
             label title: "Assign a name", required: false
             mode title: "Set for specific mode(s)", required: false
-        }
+    	}
     }
 }
 

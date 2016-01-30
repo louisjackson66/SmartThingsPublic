@@ -73,7 +73,7 @@ def onHandler(evt)
 	if (onSwitches.size())
     {
 		strMessage = "${onSwitches.size()} out of ${switches.size()} lights are on."
-    	log.warn strMessage
+    	log.warn "${strMessage} - ${currSwitches} - ${onSwitches} - ${switchVal}"
     	sendNotificationEvent(strMessage)
     }
 }
