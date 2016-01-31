@@ -3,10 +3,11 @@
  *
  *  Copyright 2016 Louis Jackson
  *
- *  Version 1.0.0   31 Jan 2016
+ *  Version 1.0.1   31 Jan 2016
  *
  *	Version History
  *
+ *	1.0.1   31 Jan 2016		Added version number to the bottom of the input screen
  *	1.0.0	28 Jan 2016		Added to GitHub
  *	1.0.0	27 Jan 2016		Creation
  *
@@ -58,6 +59,8 @@ def page1() {
             label title: "Assign a name", required: false
             mode title: "Set for specific mode(s)", required: false
     	}
+        
+        section ("Version 1.0.1") {}
     }
 }
 

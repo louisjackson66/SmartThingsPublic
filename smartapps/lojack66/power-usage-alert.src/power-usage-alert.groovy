@@ -3,10 +3,11 @@
  *
  *  Copyright 2016 Louis Jackson
  *
- *  Version 1.0.1   31 Jan 2016
+ *  Version 1.0.2   31 Jan 2016
  *
  *	Version History
  *
+ *	1.0.2   31 Jan 2016		Added version number to the bottom of the input screen
  *	1.0.1	28 Jan 2016		Added to GitHub and made grammer corrections in alert message
  *	1.0.0	27 Jan 2016		Creation
  *
@@ -32,14 +33,16 @@ definition(
 
 
 preferences {
-	section("Select Things to Control:") {
+	section("Select Things to Control:") 
+    {
 		input "PowerMeters", "capability.powerMeter", title: "Meters", multiple: true, required:true
 		input "MaxPower", "number", title: "Notify when power exceeds", required: true
 	}
     
     section("Via push notification and/or a SMS message") {
-        input "recipients", "contact", title: "Send notifications to", required: false
-    }
+        input "recipients", "contact", title: "Send notifications to", required: false }
+    
+    section ("Version 1.0.2") {}
 }
 
 def installed() {
@@ -85,6 +88,4 @@ def onHandler()
     	strMessage = "The ${app.label} SmartApp determined you have ${nDevCnt} device(s) using a total of ${PowerMetersValue}W. This is above the alert level of ${settings.MaxPower.toInteger()}W :\n\n${strMessage}"
     	sendNotificationToContacts(strMessage, recipients)
 	}
-    else
-        log.info "(0F) - comparing ${PowerMetersValue} to ${settings.MaxPower.toInteger()} - ${settings}"
 }

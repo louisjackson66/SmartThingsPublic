@@ -3,10 +3,11 @@
  *
  *  Copyright 2016 Louis Jackson
  *
- *  Version 1.0.1   29 Jan 2016
+ *  Version 1.0.2   29 Jan 2016
  *
  *	Version History
  *
+ *	1.0.2   31 Jan 2016		Added version number to the bottom of the input screen
  *	1.0.1	29 Jan 2016		Allows for multiple Reoccurring time options
  *	1.0.0	28 Jan 2016		Added to GitHub
  *	1.0.0	27 Jan 2016		Creation
@@ -59,6 +60,8 @@ def page1() {
             label title: "Assign a name", required: false
             mode title: "Set for specific mode(s)", required: false
     	}
+        
+        section ("Version 1.0.2") {}
     }
 }
 
@@ -84,16 +87,12 @@ def initialize()
         if (b10Min) runEvery15Minutes(handlerMethod) 
         else if (b30Min) runEvery30Minutes(handlerMethod)
         else if (b1Hr) runEvery1Hour(handlerMethod)
-        else 
-        {
-        	b3Hr= true;
-        	runEvery3Hours(handlerMethod)
-        }
+        else runEvery3Hours(handlerMethod)
         
         handlerMethod()                   //runs this SmartApp after inital setup
     } else
     {
-    	log.info "(0D) ${app.label} - initialize() - Run as scheduled: ${time1}"
+    	log.info "(0D) ${app.label} - initialize() - Run as scheduled: ${time1} - ${settings}"
         schedule(time1, handlerMethod)
     }    
 }
@@ -121,5 +120,5 @@ def turnOnSwitch() {
     }
     
      sendNotificationEvent("${app.label} completed reset of ${strMsg}")
-     log.trace "(11) - ${app.label} completed reset of ${strMsg} - ${settings}"
+     log.trace "(11) - ${app.label} completed reset of ${strMsg}"
 }

@@ -3,10 +3,11 @@
  *
  *  Copyright 2016 Louis Jackson
  *
- *  Version 1.0.0   31 Jan 2016
+ *  Version 1.0.1   31 Jan 2016
  *
  *	Version History
  *
+ *	1.0.1   31 Jan 2016		Added version number to the bottom of the input screen
  *	1.0.0	28 Jan 2016		Added to GitHub
  *	1.0.0	27 Jan 2016		Creation
  *
@@ -32,20 +33,25 @@ definition(
 
 
 preferences {
-	section("Select Things to Control:") {
+	section("Select Things to Monitor:") 
+    {
             input "theThermostat", "capability.temperatureMeasurement", title: "Things With Thermostats", multiple: true,   required: true
     }
     
-    section("Set Temperature Alerts:") {
+    section("Set Temperature Alerts:") 
+    {
     		input "maxThreshold", "number",   title: "if above... (default 90°)", defaultValue:90,   required: true
             input "minThreshold", "number",   title: "if below... (default 40°)", defaultValue:40,   required: true
     }
   
-    section("Via push notification and/or a SMS message") {
+    section("Via push notification and/or a SMS message") 
+    {
         input("recipients", "contact", title: "Send notifications to") {
             input "phone", "phone", title: "Warn with text message (optional)", description: "Phone Number", required: false
         }
     }
+    
+    section ("Version 1.0.1") {}
 }
 
 def installed() {

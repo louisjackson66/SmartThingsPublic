@@ -3,10 +3,11 @@
  *
  *  Copyright 2016 Louis Jackson
  *
- *  Version 1.0.0   31 Jan 2016
+ *  Version 1.0.1   31 Jan 2016
  *
  *	Version History
  *
+ *	1.0.1   31 Jan 2016		Added version number to the bottom of the input screen
  *	1.0.0	28 Jan 2016		Added to GitHub
  *	1.0.0	27 Jan 2016		Creation
  *
@@ -31,15 +32,16 @@ definition(
     iconX3Url: "http://cdn.device-icons.smartthings.com/Lighting/light11-icn@2x.png")
 
 preferences {
-	section() {
-		input "switches", "capability.switch", title: "Select Lights...", multiple: true, required:true
-	}
+	section("Select Things to Monitor:") {
+		input "switches", "capability.switch", title: "Select Lights...", multiple: true, required:true }
     
-    section() {
+    section("Via push notification and/or a SMS message") 
+    {
         input("recipients", "contact", title: "Send notifications to") {
-            input "phone", "phone", title: "Warn with text message (optional)", description: "Phone Number", required: false
-        }
+            input "phone", "phone", title: "Warn with text message (optional)", description: "Phone Number", required: false }
     }
+    
+    section ("Version 1.0.1") {}
 }
 
 def installed() {

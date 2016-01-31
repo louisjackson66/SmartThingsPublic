@@ -3,10 +3,11 @@
  *
  *  Copyright 2016 Louis Jackson
  *
- *  Version 1.0.1	30 Jan 2016
+ *  Version 1.0.2	30 Jan 2016
  *
  *	Version History
  *
+ *	1.0.2   31 Jan 2016		Added version number to the bottom of the input screen
  *	1.0.1	30 Jan 2016		Identifies the lights that are on by name.
  *	1.0.0	28 Jan 2016		Added to GitHub
  *	1.0.0	27 Jan 2016		Creation
@@ -34,9 +35,11 @@ definition(
 
 preferences 
 {
-	section("Select Things to Control:") {
+	section("Select Things to Monitor:") {
 		input "switches", "capability.switch", title: "Select Lights/Switches...", multiple: true, required:true
     }
+    
+    section ("Version 1.0.2") {}
 }
 
 def installed() 

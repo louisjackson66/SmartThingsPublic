@@ -3,10 +3,12 @@
  *
  *  Copyright 2016 Louis Jackson
  *
- *  Version 1.0.0   31 Jan 2016
+ *  Version 1.0.2   31 Jan 2016
  *
  *	Version History
  *
+ *	1.0.2   31 Jan 2016		Changed battery check to once a day.
+ *	1.0.1   30 Jan 2016		Added version number to the bottom of the input screen
  *	1.0.0	28 Jan 2016		Added to GitHub
  *	1.0.0	27 Jan 2016		Creation
  *
@@ -32,16 +34,20 @@ definition(
 
 
 preferences {
-    section("Select Things to Control:") {
-            input "thebattery", "capability.battery", title: "When batteries in...", multiple: true,   required: true
-    		input "minThreshold", "number",   title: "Are below... (default 40)%", defaultValue:40,   required: false
-    }
+    section("Select Things to Monitor:") {
+            input "thebattery", "capability.battery", title: "with batteries...", multiple: true,   required: true }
   
-    section("Via push notification and/or a SMS message") {
+    section("Set Battery Alerts:") {
+      		input "minThreshold", "number",   title: "when below... (default 40)%", defaultValue:40,   required: false }
+
+    section("Via push notification and/or a SMS message") 
+    {
         input("recipients", "contact", title: "Send notifications to") {
             input "phone", "phone", title: "Warn with text message (optional)", description: "Phone Number", required: false
         }
     }
+    
+    section ("Version 1.0.2") {}
 }
 
 def installed() {
@@ -58,10 +64,12 @@ def updated() {
 def initialize() {
    	log.info "(0C) ${app.label} - initialize()"
     
-    runEvery1Hour(doBatteryCheck)
-	//schedule("0 30 11 ? * SAT", doBatteryCheck) // call handlerMethod2 at 11:30am every Saturday of the month
+    //runEvery1Hour(doBatteryCheck) // call doBatteryCheck every hour
+    //runEvery3Hours(doBatteryCheck) // call doBatteryCheck every 3 hours
+	schedule("2016-01-31T15:45:00.000-0600", doBatteryCheck)  // call doBatteryCheck every day at 3:45 PM CST
+	//schedule("0 30 11 ? * SAT", doBatteryCheck) // call doBatteryCheck at 11:30am every Saturday of the month
     
-    doBatteryCheck() //Check now!
+    doBatteryCheck() // ...and check now!
 }
 
 def doBatteryCheck() {

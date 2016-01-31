@@ -3,10 +3,11 @@
  *
  *  Copyright 2016 Louis Jackson
  *
- *  Version 1.0.0   31 Jan 2016
+ *  Version 1.0.1   31 Jan 2016
  *
  *	Version History
  *
+ *	1.0.1   31 Jan 2016		Added version number to the bottom of the input screen
  *	1.0.0	28 Jan 2016		Added to GitHub
  *	1.0.0	27 Jan 2016		Creation
  *
@@ -37,6 +38,7 @@ preferences {
 		input "offswitches", "capability.switch", title: "Turn off...", multiple: true
         input "onswitches", "capability.switch", title: "Turn on...", multiple: true
 	}
+    section ("Version 1.0.1") {}
 }
 
 def installed() {
