@@ -32,16 +32,16 @@ definition(
 
 
 preferences {
-    section() {
-            input "theThermostat", "capability.temperatureMeasurement", title: "Things with temperatures", multiple: true,   required: true
+	section("Select Things to Control:") {
+            input "theThermostat", "capability.temperatureMeasurement", title: "Things With Thermostats", multiple: true,   required: true
     }
     
-    section("Set temperature alerts:") {
+    section("Set Temperature Alerts:") {
     		input "maxThreshold", "number",   title: "if above... (default 90°)", defaultValue:90,   required: true
             input "minThreshold", "number",   title: "if below... (default 40°)", defaultValue:40,   required: true
     }
   
-    section() {
+    section("Via push notification and/or a SMS message") {
         input("recipients", "contact", title: "Send notifications to") {
             input "phone", "phone", title: "Warn with text message (optional)", description: "Phone Number", required: false
         }

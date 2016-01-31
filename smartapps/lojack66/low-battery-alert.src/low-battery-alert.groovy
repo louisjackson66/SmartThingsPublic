@@ -32,12 +32,12 @@ definition(
 
 
 preferences {
-    section("Set battery options:") {
+    section("Select Things to Control:") {
             input "thebattery", "capability.battery", title: "When batteries in...", multiple: true,   required: true
     		input "minThreshold", "number",   title: "Are below... (default 40)%", defaultValue:40,   required: false
     }
   
-    section() {
+    section("Via push notification and/or a SMS message") {
         input("recipients", "contact", title: "Send notifications to") {
             input "phone", "phone", title: "Warn with text message (optional)", description: "Phone Number", required: false
         }

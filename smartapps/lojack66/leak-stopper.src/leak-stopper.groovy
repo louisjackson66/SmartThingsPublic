@@ -31,7 +31,8 @@ definition(
     iconX3Url: "http://cdn.device-icons.smartthings.com/Weather/weather12-icn@2x.png")
 
 preferences {
-    section() {
+	section("Select Things to Control:") 
+    {
 		input "lsensor", "capability.waterSensor", title: "When water is detected...", required: true
 		input "offswitches", "capability.switch", title: "Turn off...", multiple: true
         input "onswitches", "capability.switch", title: "Turn on...", multiple: true

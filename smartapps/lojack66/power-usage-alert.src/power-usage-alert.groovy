@@ -32,12 +32,12 @@ definition(
 
 
 preferences {
-	section("Monitor the following power meters:") {
+	section("Select Things to Control:") {
 		input "PowerMeters", "capability.powerMeter", title: "Meters", multiple: true, required:true
 		input "MaxPower", "number", title: "Notify when power exceeds", required: true
 	}
     
-    section() {
+    section("Via push notification and/or a SMS message") {
         input "recipients", "contact", title: "Send notifications to", required: false
     }
 }

@@ -34,8 +34,8 @@ definition(
 
 preferences 
 {
-	section() {
-		input "switches", "capability.switch", title: "Select Lights...", multiple: true, required:true
+	section("Select Things to Control:") {
+		input "switches", "capability.switch", title: "Select Lights/Switches...", multiple: true, required:true
     }
 }
 
