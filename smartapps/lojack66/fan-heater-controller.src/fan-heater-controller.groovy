@@ -60,7 +60,7 @@ def page1() {
             mode title: "Set for specific mode(s)", required: false
     	}
         
-        section ("Version 1.0.1") {}
+        section ("Version 1.0.1a") {}
     }
 }
 
@@ -103,9 +103,7 @@ def doTempCheck(evt)
 			if ( settings.minThreshold.toInteger() != null && evt.doubleValue <= settings.minThreshold.toInteger() ) {strMsg = "ON"}
         }
         
-        //
         // Keeps from turning on or off a switch unnessesarily
-        //
         if (((it.latestState("switch").value in ["on", "ON"]) && strMsg == "OFF") ||
             ((it.latestState("switch").value in ["off", "OFF"]) && strMsg == "ON")
             )
