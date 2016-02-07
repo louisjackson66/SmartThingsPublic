@@ -119,7 +119,7 @@ def powerInputHandler(evt)
                     } else sendSms(phone, FinishMsg)
                 }
                 
-                if (sendPushMessage) sendPush FinishMsg
+                if (sendPushMessage && !phone) sendPush FinishMsg
                 if (switches) switches*.on()
                 if (speech) speech.speak(FinishMsg)     
             }
