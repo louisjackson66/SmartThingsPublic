@@ -82,7 +82,7 @@ def initialize()
 {
     if (bReoccurring) 
     {
-    	log.info "(0C) ${app.label} - initialize() - Run Reoccurring - ${settings}"
+    	log.info "(0C) ${app.label} - initialize() - Run Reoccurring - Can schedule? ${canSchedule()}"
         
         if (b10Min) runEvery15Minutes(handlerMethod) 
         else if (b30Min) runEvery30Minutes(handlerMethod)
@@ -92,7 +92,7 @@ def initialize()
         handlerMethod()                   //runs this SmartApp after inital setup
     } else
     {
-    	log.info "(0D) ${app.label} - initialize() - Run as scheduled: ${time1} - ${settings}"
+    	log.info "(0D) ${app.label} - initialize() - Run as scheduled: ${time1} - Can schedule? ${canSchedule()}"
         schedule(time1, handlerMethod)
     }    
 }

@@ -109,8 +109,8 @@ def doTempCheck(evt)
             )
         {
         	strMsg == "ON" ? it.on() : it.off()
-			log.trace "(0F) ${app.label} - ${it.label} turned ${strMsg} - ${bFan}"
-			sendNotificationEvent("${app.label} turned ${it.label} ${strMsg}")
+			log.trace "(0F) ${app.label} - ${it.label} turned ${strMsg} - ${bFan} - ${evt.doubleValue}°"
+			sendNotificationEvent("${app.label} turned ${it.label} ${strMsg} - ${evt.doubleValue}°")
         }
         //The after state has to be checked manually.  This code runs faster than the lights will be adjusted.
     }

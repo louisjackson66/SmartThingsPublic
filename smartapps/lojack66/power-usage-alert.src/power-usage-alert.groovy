@@ -58,7 +58,7 @@ def updated() {
 }
 
 def initialize() {
-    log.info "(0C) ${app.label} - initialize()"
+    log.info "(0C) ${app.label} - initialize() - Can schedule? ${canSchedule()}"
     runEvery15Minutes(onHandler) 
     onHandler() //Check now!
 }

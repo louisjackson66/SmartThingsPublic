@@ -62,7 +62,7 @@ def updated() {
 }
 
 def initialize() {
-   	log.info "(0C) ${app.label} - initialize()"
+   	log.info "(0C) ${app.label} - initialize() - Can schedule? ${canSchedule()}"
     
     //runEvery1Hour(doBatteryCheck) // call doBatteryCheck every hour
     //runEvery3Hours(doBatteryCheck) // call doBatteryCheck every 3 hours

@@ -66,8 +66,7 @@ def updated() {
 }
 
 def initialize() {
-   	log.info "(0C) - initialize()"
-    
+   	log.info "(0C) - initialize() - Can schedule? ${canSchedule()}"
 	//schedule("0 30 11 ? * SAT", doTempCheck) // call doTempCheck at 11:30am every Saturday of the month
     //schedule("0 30 * * * ?", doTempCheck)      // execute doTempCheck every hour on the half hour.  
     runEvery1Hour(doTempCheck)

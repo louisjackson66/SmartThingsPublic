@@ -40,8 +40,7 @@ preferences {
     section("Notifications") 
     {
 		input "sendPushMessage", "bool", title: "Push Notifications?"
-		input "phone", "phone", title: "Send a text message?", required: false
-            paragraph "For multiple SMS recipients, separate phone numbers with a semicolon(;)"      
+        input "recipients", "contact", title: "Send notifications to", required: false
 	}
 
 	section("System Variables")
@@ -108,20 +107,14 @@ def powerInputHandler(evt)
             {
             	atomicState.isRunning = false
                 atomicState.stoppedAt = now()  
+                
                 log.debug "startedAt: ${atomicState.startedAt}, stoppedAt: ${atomicState.stoppedAt}"                    
                 log.trace FinishMsg
                 
-                if (phone) {
-                    if ( phone.indexOf(";") > 1)
-                    {
-                        def phones = phone.split(";")
-                        for ( def i = 0; i < phones.size(); i++) sendSms(phones[i], FinishMsg)
-                    } else sendSms(phone, FinishMsg)
-                }
-                
-                if (sendPushMessage && !phone) sendPush FinishMsg
+                if (sendPushMessage && !recipients) sendPush FinishMsg
+                if (location.contactBookEnabled && recipients) sendNotificationToContacts(FinishMsg, recipients)    
+                if (speech) speech.speak(FinishMsg)    
                 if (switches) switches*.on()
-                if (speech) speech.speak(FinishMsg)     
             }
         }             	
     }
