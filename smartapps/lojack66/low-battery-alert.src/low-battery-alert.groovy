@@ -34,17 +34,18 @@ definition(
 
 
 preferences {
-    section("Select Things to Monitor:") {
+    section("Device to Monitor:") {
             input "thebattery", "capability.battery", title: "with batteries...", multiple: true,   required: true }
   
-    section("Set Battery Alerts:") {
+    section("Battery Settings:") {
       		input "minThreshold", "number",   title: "when below... (default 40)%", defaultValue:40,   required: false }
 
-    section("Via push notification and/or a SMS message") 
-    {
+	section("Notification:") {
+        input "time", "time", title: "Notify at what time daily?", required: true
         input("recipients", "contact", title: "Send notifications to") {
             input "phone", "phone", title: "Warn with text message (optional)", description: "Phone Number", required: false
         }
+        input "sonos", "capability.musicPlayer", title: "On this Speaker player", required: false
     }
     
     section ("Version 1.0.2") {}
@@ -66,7 +67,8 @@ def initialize() {
     
     //runEvery1Hour(doBatteryCheck) // call doBatteryCheck every hour
     //runEvery3Hours(doBatteryCheck) // call doBatteryCheck every 3 hours
-	schedule("2016-01-31T15:45:00.000-0600", doBatteryCheck)  // call doBatteryCheck every day at 3:45 PM CST
+	//schedule("2016-01-31T15:45:00.000-0600", doBatteryCheck)  // call doBatteryCheck every day at 3:45 PM CST
+    schedule(settings.time, doBatteryCheck) //At user defined time
 	//schedule("0 30 11 ? * SAT", doBatteryCheck) // call doBatteryCheck at 11:30am every Saturday of the month
     
     doBatteryCheck() // ...and check now!
@@ -99,6 +101,8 @@ def doBatteryCheck() {
 
 private send(msg) {
     log.info "(01) sending message ${msg}"
+
+	if (sonos) sonos.playTextAndResume(msg, 100)
 
 	if (location.contactBookEnabled) 
     {

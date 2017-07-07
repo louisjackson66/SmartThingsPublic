@@ -1,12 +1,13 @@
 /**
  *  Temperature Alert
  *
- *  Copyright 2016 Louis Jackson
+ *  Copyright 2017 Louis Jackson
  *
- *  Version 1.0.1   31 Jan 2016
+ *  Version 1.0.2   8  Jan 2017
  *
  *	Version History
  *
+ *	1.0.2   8  Jan 2017		Changed the check\alert from 1 to every 3 hours.
  *	1.0.1   31 Jan 2016		Added version number to the bottom of the input screen
  *	1.0.0	28 Jan 2016		Added to GitHub
  *	1.0.0	27 Jan 2016		Creation
@@ -51,7 +52,7 @@ preferences {
         }
     }
     
-    section ("Version 1.0.1") {}
+    section ("Version 1.0.2") {}
 }
 
 def installed() {
@@ -69,7 +70,8 @@ def initialize() {
    	log.info "(0C) - initialize() - Can schedule? ${canSchedule()}"
 	//schedule("0 30 11 ? * SAT", doTempCheck) // call doTempCheck at 11:30am every Saturday of the month
     //schedule("0 30 * * * ?", doTempCheck)      // execute doTempCheck every hour on the half hour.  
-    runEvery1Hour(doTempCheck)
+    //runEvery1Hour(doTempCheck)         //Every hours was too frequent and bug the hell out of me.
+    runEvery3Hours(doTempCheck)
     
     doTempCheck() //Check now!
 }
